@@ -21,11 +21,16 @@ A simple and responsive Age Calculator built with **React** that calculates a us
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
 
-<h2>Demo</h2>
+<h2>Demo</h2><div>
 <a href="https://aadilkhanpathan.github.io/Age-Calculator/">
   <img src="https://img.shields.io/badge/View%20Site-4A4A4A?style=for-the-badge" />
 </a>
-<img width="934" height="753" alt="image" src="https://github.com/user-attachments/assets/4a1a0d40-785b-45d1-a583-be4e4934be00" />
+</div>
+
+<img width="1919" height="464" alt="image" src="https://github.com/user-attachments/assets/ee8ad78c-4bd5-45af-b76f-c9617e53c493" />
+
+<img width="1919" height="752" alt="image" src="https://github.com/user-attachments/assets/e31d0a48-22d6-480e-b2af-118adfca96f4" />
+
 
 
 ## 📂 Project Structure
