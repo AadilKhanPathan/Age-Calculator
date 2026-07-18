@@ -8,9 +8,26 @@ function App() {
   const [totalDays, setTotalDays] = useState();
   const [totalHours, setTotalHours] = useState();
 
+  const [error, setError] = useState("");
+
   function CalculateAge() {
     const today = new Date();
     const dateOfBirth = new Date(birthDate);
+
+    if (!birthDate) {
+      setError("Please enter a valid date of birth to calculate your age.");
+      setAge("");
+      return;
+    }
+    if (today < dateOfBirth) {
+      setError(
+        "Time traveler detected! ⏳ Please enter a date that has already happened.",
+      );
+      setAge("");
+      return;
+    }
+
+    setError("");
 
     TotalCalculation(today, dateOfBirth);
 
@@ -41,47 +58,53 @@ function App() {
   function TotalCalculation(today, dob) {
     const differenceInMilliseconds = today - dob;
 
-    const days = Math.floor(
-    differenceInMilliseconds / (1000 * 60 * 60 * 24)
-  );
+    const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
-  setTotalDays(`${days} Total Days`);
-  setTotalWeeks(`${Math.floor(days / 7)} Total Weeks`);
-  setTotalMonths(`${Math.floor(days / 30.44)} Total Months`);
-  setTotalHours(`${days * 24 } Total hours`);
+    setTotalDays(`${days.toLocaleString()} Total Days`);
+    setTotalWeeks(`${Math.floor(days / 7).toLocaleString()} Total Weeks`);
+    setTotalMonths(`${Math.floor(days / 30.44).toLocaleString()} Total Months`);
+    setTotalHours(`${(days * 24).toLocaleString()} Total hours`);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    CalculateAge();
+  }
   return (
     <div className="container">
-      <h1>Age Calculator</h1>
-      <hr />
-      <label>Date of birth</label>
-      <div>
-        <input
-          type="date"
-          value={birthDate}
-          onChange={(e) => setBirthDate(e.target.value)
-          }
-        />
-        <button onClick={CalculateAge}>Calculate age</button>
-      </div>
-      {age &&
-      <div>
-      <div className="answer">
-        your age is<p>{age}</p>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <h1>Age Calculator</h1>
+        <hr />
+        <label>Date of birth</label>
+        <div>
+          <input
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+          />
+          <button type="submit">
+            Calculate age
+          </button>
+        </div>
+      </form>
+      {error && <div className="error-message" style={{color:"#d9534f", marginTop: "15px", fontWeight: "bold"}} >{error}</div>}
+      {age && !error && (
+        <div>
+          <div className="answer">
+            Your Age Is:<p>{age}</p>
+          </div>
 
-      <div className="Days_Weeks">
-        <span>{totalDays}</span>
-        <span>{totalWeeks}</span>
-      </div>
+          <div className="Days_Weeks">
+            <span>{totalDays}</span>
+            <span>{totalWeeks}</span>
+          </div>
 
-      <div className="Months_Hours">
-        <span>{totalMonths}</span>
-        <span>{totalHours}</span>
-      </div>
-      </div>
-      }
+          <div className="Months_Hours">
+            <span>{totalMonths}</span>
+            <span>{totalHours}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
